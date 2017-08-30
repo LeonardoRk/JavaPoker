@@ -1,4 +1,3 @@
-import jogo.Carta;
 
 public class Jogador {
 
