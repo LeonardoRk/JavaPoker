@@ -9,10 +9,10 @@ import java.util.Random;
 public class Baralho {
 	
 	// paus, copas,espada, ouro
-	char[] naipes = {(char)'\u2663' , (char)'\u2764' , (char)'\u2660' , (char)'\u2666'};
+	char[] naipes = {(char)'\u2663',(char)'\u2663',(char)'\u2663', (char)'\u2663'}; // , (char)'\u2764' , (char)'\u2660' , (char)'\u2666'};
 	  
 	// valores que as cartas podem assumir no baralho
-	String[] valores = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};	
+	String[] valores = {"2","3","4","5","2", "3" , "4" , "5" , "6" ,"5" ,"3" ,"6" ,"2"}; //,"7","8","9","10","J","Q","K","A"};	
 	
 	ArrayList<Carta> cartas = null;
 
@@ -20,8 +20,10 @@ public class Baralho {
 		this.cartas = new ArrayList<Carta>();
 		
 		// adiciona todas as cartas existentes de um baralho em cartas
-		for(int i = 0; i < 4; i++) {
-			for(int j = 0; j < 13; j++){
+		final int NUMBER_OF_NIPES = 4;
+		final int ALL_VALUES = 13;
+		for(int i = 0; i < NUMBER_OF_NIPES; i++) {
+			for(int j = 0; j < ALL_VALUES; j++){
 				Carta carta = new Carta( this.naipes[i] , this.valores[j]);
 				this.cartas.add(carta);	
 			}	

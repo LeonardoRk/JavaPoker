@@ -1,6 +1,8 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+
 public class Rodada {
 	
 	private Integer qntsVaoJogar = 0;
@@ -49,8 +51,44 @@ public class Rodada {
 		if(this.qntsVaoJogar == 1) {
 			System.out.println("O vencedor é:" + imprimeNomeDoVencedor(jogadores));
 		}else {
-			// decide nas cartas o vencedor agora .... gogo jones, ensina-me
+			
+			Servico servico = new Servico(jogadores , this.cartasNaMesa);
+			ArrayList<Integer> acumuladoMesaJogador = new ArrayList<Integer>();
+			char nipeMaisRepetido = servico.juntaCartasDaMesaParaStraightFlush(acumuladoMesaJogador);
+			
+			boolean temStraight = false;
+			for(int i = 0 ; i < jogadores.size() ; i++) {
+				
+				Jogador jogador = jogadores.get(i);
+				acumuladoMesaJogador = servico.acumulaCartasJogadores(acumuladoMesaJogador ,jogador , nipeMaisRepetido);
+			
+				StraightFlush straightFlush = new StraightFlush(acumuladoMesaJogador);
+				
+				temStraight = straightFlush.temStraight();
+				
+				if(temStraight){
+					System.out.println("FEZ STRAIGHT FLUSH:  " + jogador.getNome());
+				}else {
+					System.out.println("NÃO FEZ STRAIGHT FLUSH: " + jogador.getNome());
+				}
+				
+				
+				excluiCartasJogadorAtual(acumuladoMesaJogador);
+			}
+			
+			
+			
+			//ArrayList<Jogador> vencedores = servico.procuraVencedor();
+			
 		}
+	}
+
+
+	private void excluiCartasJogadorAtual(ArrayList<Integer> acumuladoMesaJogador) {
+		int qtdCartas = acumuladoMesaJogador.size();
+		acumuladoMesaJogador.remove(qtdCartas - 1);
+		qtdCartas--;
+		acumuladoMesaJogador.remove(qtdCartas - 1);
 	}
 
 
